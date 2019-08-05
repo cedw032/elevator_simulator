@@ -1,33 +1,57 @@
-.App {
-  text-align: center;
-}
+$shade1: #383536; // Background Highlight
+$shade2: #E8E9EB; // Text
+$shade3: #636564; // Lightest Dark
+$shade4: #2A2B2A; // Background
+$shade5: #ED474A; // Red
+$shade6: #2274A5; // Blue
+$shade7: #DDB967; // Yellow
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
-}
+body {
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+	background-color: $shade4;
+	color: $shade7;
 
-.App-link {
-  color: #61dafb;
-}
+	.app {
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+		div,
+		button {
+			background-color: $shade4;
+			color: $shade7;
+			border: 1px dotted $shade7;
+			border-radius: 4px;
+			padding: 4px;
+			margin-bottom: 4px;
+			margin-right: 4px;
+			text-align: center;
+		}
+
+		div {
+			&.highlight {
+				border-color: $shade2;
+				color: $shade2;
+			}
+		}
+
+		button {
+			&:focus {
+				outline: none;
+			}
+
+			&.toggled {
+				//background-color: $shade1;
+				border-color: $shade6;
+				color: $shade6;
+			}
+		}
+
+		.floor-bank {
+			display: flex;
+			flex-direction: column-reverse;
+		}
+
+		.row {
+			display: flex;
+			flex-direction: row;
+		}
+	}
 }
