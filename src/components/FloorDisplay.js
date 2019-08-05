@@ -15,6 +15,10 @@ const FloorDisplay = ({floor, elevator}) => {
 
 	const isDoorOpen = () => elevator.currentFloor() == floor && elevator.isOpen()
 
+	const isAtThisFloor = () => elevator.currentFloor() == floor;
+
+	const isRequested = direction => elevator.isRequested(floor, direction)
+
 	const requestElevator = direction => () => {
 		elevator.requestElevator(floor, direction);
 		forceUpdate();
@@ -22,22 +26,22 @@ const FloorDisplay = ({floor, elevator}) => {
 
 	return (
 		<div className='row'>
-			<div className={cx(elevator.currentFloor() == floor && 'highlight')}>
+			<div className={cx(isAtThisFloor() && 'highlight')}>
 				Floor {floor}
 			</div>
 			
 			<button 
-				className={cx(elevator.isRequested(floor, DOWN) && 'toggled')}
+				className={cx(isRequested(DOWN) && 'toggled')}
 				onClick={requestElevator(DOWN)}
 				children='Down'/>
 			
 			<button 
-				className={cx(elevator.isRequested(floor, UP) && 'toggled')}
+				className={cx(isRequested(UP) && 'toggled')}
 				onClick={requestElevator(UP)}
 				children='Up'/>
 			
 			{isDoorOpen()
-				? <div>Open</div>
+				? <div className='highlight2'>Open</div>
 				: <div>Closed</div>
 			}
 		</div>

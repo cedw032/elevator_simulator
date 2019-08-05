@@ -30,6 +30,11 @@ body {
 				border-color: $shade2;
 				color: $shade2;
 			}
+
+			&.highlight2 {
+				border-color: $shade5;
+				color: $shade5;
+			}
 		}
 
 		button {

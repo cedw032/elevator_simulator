@@ -14,6 +14,9 @@ body {
   body .app div.highlight {
     border-color: #E8E9EB;
     color: #E8E9EB; }
+  body .app div.highlight2 {
+    border-color: #ED474A;
+    color: #ED474A; }
   body .app button:focus {
     outline: none; }
   body .app button.toggled {
