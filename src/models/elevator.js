@@ -86,9 +86,11 @@ const provideElevator = (floorCount) => {
 			destination => destination != currentFloor
 		);
 
-		requests = requests.filter(
-			request => request.floor != currentFloor
-		);
+		const requestFilter = currentDirection() == NONE
+			? request => request.floor != currentFloor
+			: request => request.floor != currentFloor && request.direction != currentDirection();
+
+		requests = requests.filter(requestFilter);
 
 		elevatorState = OPEN;
 		dispatchDoorsOpen();
