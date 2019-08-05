@@ -1,0 +1,168 @@
+
+///////////////////// RUN STATE MACHINE
+
+- elevator state is stopped?
+	- should open?
+		- open doors
+		- return
+
+	- floor to move to?
+		- move to next floor
+		- return
+
+	- return
+
+- elevator state is open?
+	- open time greater or equal to open timeout
+		- close doors
+		- return
+
+	- increment open time
+
+	- return
+
+- elevator state is moving?
+	- move time greater or equal to timesteps between floors
+
+		- update current floor
+
+		- should open?
+			- stop elevator
+			- return
+
+		- move to next floor
+		- return
+
+	- increment move time
+
+	-return
+
+////////////////////
+
+
+
+///////////// ACTIONS
+
+add destination : floor
+	- add floor destination list
+
+	- elevator state is open?
+		- close doors
+
+request elevator : floor, direction
+	- add floor and direction to request list
+
+elapse time
+	- run state machine
+
+move to next floor
+	- reset move time
+	- set elevator state to moving
+
+close doors
+	- set elevator state to stopped
+
+stop elevator
+	- set elevator state to stopped
+
+open doors
+	- reset open time
+	- remove current floor from both lists
+	- set elevator state to open
+
+update current floor
+	- current direction is up
+		- increment current floor
+		- return
+
+	- current direction is down
+		- decrement current floor
+		- return
+
+///////////////
+
+
+
+//////////////// STATE
+
+elevator state (stopped) : elevator state
+
+open time (0) : count
+
+move time (0) : count
+
+current floor (1) : floor
+
+destination list ([]) : floor
+
+request list ([]) : floor, direction
+
+
+/////////////////
+
+
+///////////////// DERIVED STATE
+
+floor to move to
+	- destination list not empty?
+		- return first destination
+
+	- request list not empty?
+		return first request floor
+
+	- return null
+
+
+should open
+	- destination list contains current floor?
+		- return true
+
+	- request list contains current floor?
+
+		- current direction is none
+			return true
+
+		- request direction is current direction
+			return true
+
+	- return false
+
+
+current direction
+	- floor to move to is null
+		- return none
+
+	- floor to move to is greater than current floor
+		- return up
+
+	- floor to move to is less than current floor
+		- return down
+
+	- return none
+
+/////////////////
+
+
+///////////////// OPTIONS
+
+timesteps between floors : count (min 1)
+
+timesteps for open timeout : count (min 1)
+
+/////////////////
+
+
+///////////////// CONSTANTS
+
+elevator state
+	moving
+	stopped
+	open
+
+direction
+	up
+	down
+	none
+
+/////////////////
+
