@@ -88,7 +88,7 @@ const provideElevator = (floorCount) => {
 
 		const requestFilter = currentDirection() == NONE
 			? request => request.floor != currentFloor
-			: request => request.floor != currentFloor && request.direction != currentDirection();
+			: request => request.floor != currentFloor || request.direction != currentDirection();
 
 		requests = requests.filter(requestFilter);
 
