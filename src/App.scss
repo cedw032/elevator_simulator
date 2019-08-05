@@ -13,6 +13,8 @@ body {
 
 	.app {
 
+		max-width: 350px;
+
 		div,
 		button {
 			background-color: $shade4;
@@ -52,6 +54,13 @@ body {
 		.floor-bank {
 			display: flex;
 			flex-direction: column-reverse;
+		}
+
+		.elevator-display {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap-reverse;
+			max-width: 85px;
 		}
 
 		.row {

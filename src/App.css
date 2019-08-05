@@ -1,30 +1,37 @@
 body {
   background-color: #2A2B2A;
   color: #DDB967; }
-  body .app div,
-  body .app button {
-    background-color: #2A2B2A;
-    color: #DDB967;
-    border: 1px dotted #DDB967;
-    border-radius: 4px;
-    padding: 4px;
-    margin-bottom: 4px;
-    margin-right: 4px;
-    text-align: center; }
-  body .app div.highlight {
-    border-color: #E8E9EB;
-    color: #E8E9EB; }
-  body .app div.highlight2 {
-    border-color: #ED474A;
-    color: #ED474A; }
-  body .app button:focus {
-    outline: none; }
-  body .app button.toggled {
-    border-color: #2274A5;
-    color: #2274A5; }
-  body .app .floor-bank {
-    display: flex;
-    flex-direction: column-reverse; }
-  body .app .row {
-    display: flex;
-    flex-direction: row; }
+  body .app {
+    max-width: 350px; }
+    body .app div,
+    body .app button {
+      background-color: #2A2B2A;
+      color: #DDB967;
+      border: 1px dotted #DDB967;
+      border-radius: 4px;
+      padding: 4px;
+      margin-bottom: 4px;
+      margin-right: 4px;
+      text-align: center; }
+    body .app div.highlight {
+      border-color: #E8E9EB;
+      color: #E8E9EB; }
+    body .app div.highlight2 {
+      border-color: #ED474A;
+      color: #ED474A; }
+    body .app button:focus {
+      outline: none; }
+    body .app button.toggled {
+      border-color: #2274A5;
+      color: #2274A5; }
+    body .app .floor-bank {
+      display: flex;
+      flex-direction: column-reverse; }
+    body .app .elevator-display {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap-reverse;
+      max-width: 85px; }
+    body .app .row {
+      display: flex;
+      flex-direction: row; }
