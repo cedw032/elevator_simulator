@@ -13,6 +13,8 @@ const provideElevator = (floorCount) => {
 	let destinations = [];
 	let requests = [];
 
+	let openTimeout = 1;
+
 	const floors = [];
 	for (let i = 1; i <= floorCount; ++i) floors.push(i);
 	///////////////// INTERNAL STATE // END
@@ -121,7 +123,7 @@ const provideElevator = (floorCount) => {
 				return;
 
 			case OPEN:
-				if (openTime) {
+				if (openTime >= openTimeout) {
 					closeDoors();
 					return;
 				}
@@ -171,6 +173,8 @@ const provideElevator = (floorCount) => {
 		addDestination,
 		requestElevator,
 		elapseTime,
+
+		setOpenTimeout: value => openTimeout = value,
 
 		currentFloor: () => currentFloor,
 		floors: () => [...floors],
