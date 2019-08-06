@@ -3,7 +3,7 @@ body {
   color: #DDB967; }
   body .app {
     max-width: 350px; }
-    body .app div,
+    body .app .panel,
     body .app button {
       background-color: #2A2B2A;
       color: #DDB967;
@@ -12,9 +12,10 @@ body {
       padding: 4px;
       margin-bottom: 4px;
       margin-right: 4px;
-      text-align: center; }
+      text-align: center;
+      font-size: 11px; }
     body .app div.highlight {
-      border-color: #E8E9EB;
+      background-color: #383536;
       color: #E8E9EB; }
     body .app div.highlight2 {
       border-color: #ED474A;
@@ -27,11 +28,25 @@ body {
     body .app .floor-bank {
       display: flex;
       flex-direction: column-reverse; }
+    body .app .floor-display {
+      align-items: flex-start;
+      justify-content: flex-end; }
+      body .app .floor-display > div {
+        padding: 4px;
+        margin-bottom: 4px;
+        margin-right: 4px;
+        min-width: 80px; }
     body .app .elevator-display {
       display: flex;
       flex-direction: row;
       flex-wrap: wrap-reverse;
-      max-width: 85px; }
+      max-width: 85px;
+      max-height: 225px;
+      justify-content: flex-end; }
+      body .app .elevator-display button {
+        min-width: 30px; }
+    body .app .top-bar {
+      justify-content: space-between; }
     body .app .row {
       display: flex;
       flex-direction: row; }

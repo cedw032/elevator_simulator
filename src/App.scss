@@ -12,10 +12,9 @@ body {
 	color: $shade7;
 
 	.app {
-
 		max-width: 350px;
 
-		div,
+		.panel,
 		button {
 			background-color: $shade4;
 			color: $shade7;
@@ -25,11 +24,13 @@ body {
 			margin-bottom: 4px;
 			margin-right: 4px;
 			text-align: center;
+			font-size: 11px;
 		}
 
 		div {
+
 			&.highlight {
-				border-color: $shade2;
+				background-color: $shade1;
 				color: $shade2;
 			}
 
@@ -56,11 +57,33 @@ body {
 			flex-direction: column-reverse;
 		}
 
+		.floor-display {
+			align-items: flex-start;
+			justify-content: flex-end;
+
+			>div {
+				padding: 4px;
+				margin-bottom: 4px;
+				margin-right: 4px;
+				min-width: 80px;
+			}
+		}
+
 		.elevator-display {
 			display: flex;
 			flex-direction: row;
 			flex-wrap: wrap-reverse;
 			max-width: 85px;
+			max-height: 225px;
+			justify-content: flex-end;
+
+			button {
+				min-width: 30px;
+			}
+		}
+
+		.top-bar {
+			justify-content: space-between;
 		}
 
 		.row {
