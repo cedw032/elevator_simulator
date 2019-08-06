@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import cx from 'classnames';
 import useAsyncState from '../hooks/useAsyncState';
 
-const AUTOPLAY_INTERVAL = 200;
+const AUTOPLAY_INTERVAL = 100;
 const AUTOPLAY_OPEN_TIMEOUT = 30;
 
 const TimeController = ({elevator}) => {
