@@ -1,5 +1,5 @@
 //////////////// CONSTANTS
-import {UP, DOWN, NONE} from '../constants/direction';
+import {UP, DOWN} from '../constants/direction';
 import {STOPPED, OPEN, MOVING} from '../constants/elevatorState';
 //////////////// CONSTANTS // END
 
@@ -10,6 +10,7 @@ const provideElevator = (floorCount) => {
 	let openTime = 0;
 	let moveTime = 0;
 	let currentFloor = 1;
+	let currentDirection = UP;
 	let destinations = [];
 	let requests = [];
 
@@ -20,10 +21,21 @@ const provideElevator = (floorCount) => {
 	///////////////// INTERNAL STATE // END
 
 	///////////////// INTERNAL DERIVED STATE
-	const floorToMoveTo = () => {
-		if (destinations.length) return destinations[0];
-		if (requests.length) return requests[0].floor;
-		return undefined;
+	const hasFloorToMoveTo = () => {
+		return !!(destinations.length + requests.length);
+	};
+
+	const canChangeDirection = () => {
+
+		const filterFloorsAhead = floor => floor * currentDirection > currentFloor * currentDirection;
+
+		const destinationsAhead = destinations.filter(filterFloorsAhead);
+
+		const requestFloorsAhead = requests.map(
+			request => request.floor
+		).filter(filterFloorsAhead);
+
+		return !(requestFloorsAhead.length + destinationsAhead.length);
 	};
 
 	const shouldOpen = () => {
@@ -31,7 +43,7 @@ const provideElevator = (floorCount) => {
 		if (destinationsAtCurrentFloor().length) return true;
 
 		if (requestsAtCurrentFloor().length) {
-			if (currentDirection() == NONE) return true;
+			if (canChangeDirection()) return true;
 			if (requestsAlsoMatchingCurrentDirection().length) return true;
 		}
 
@@ -48,14 +60,9 @@ const provideElevator = (floorCount) => {
 	);
 
 	const requestsAlsoMatchingCurrentDirection =  () => requestsAtCurrentFloor().filter(
-		request => request.direction == currentDirection()
+		request => request.direction == currentDirection
 	);
 
-	const currentDirection = () => {
-		if (floorToMoveTo() > currentFloor) return UP;
-		if (floorToMoveTo() < currentFloor) return DOWN;
-		return NONE;
-	};
 	///////////////// INTERNAL DERIVED STATE // END
 
 
@@ -86,9 +93,9 @@ const provideElevator = (floorCount) => {
 			destination => destination != currentFloor
 		);
 
-		const requestFilter = currentDirection() == NONE
+		const requestFilter = canChangeDirection()
 			? request => request.floor != currentFloor
-			: request => request.floor != currentFloor || request.direction != currentDirection();
+			: request => request.floor != currentFloor || request.direction != currentDirection;
 
 		requests = requests.filter(requestFilter);
 
@@ -97,18 +104,15 @@ const provideElevator = (floorCount) => {
 	};
 
 	const updateCurrentFloor = () => {
-		if (currentDirection() == UP) {
-			++currentFloor;
-			dispatchFloorChange();
-			return;
-		}
-
-		if (currentDirection() == DOWN) {
-			--currentFloor;
-			dispatchFloorChange();
-			return;
-		}
+		currentFloor += currentDirection;
+		dispatchFloorChange();
 	};
+
+	const updateCurrentDirection = () => {
+		if (canChangeDirection()) {
+			currentDirection *= DOWN;
+		}
+	}
 
 	const elapseTime = () => {
 		switch (elevatorState) {
@@ -118,7 +122,8 @@ const provideElevator = (floorCount) => {
 					return;
 				}
 
-				if (floorToMoveTo()) {
+				if (hasFloorToMoveTo()) {
+					updateCurrentDirection();
 					moveToNextFloor();
 					return;
 				}
