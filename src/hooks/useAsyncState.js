@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import useForceUpdate from './useForceUpdate';
 
 let state;
 
@@ -6,12 +7,12 @@ const useAsyncState = (initial) => {
 
 	if (!state) state = {value: initial};
 
-	const [o, setState] = useState();
+	const forceUpdate = useForceUpdate();
 
 	const updateValue = (value) => {
 		if (value !== state.value) {
 			state.value = value;
-			setState({});
+			forceUpdate();
 		}
 	};
 

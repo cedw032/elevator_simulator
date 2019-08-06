@@ -1,7 +1,7 @@
 import {useState} from 'react';
 
 const useForceUpdate = () => {
-	const [o, update] = useState();
+	const [, update] = useState();
 	return () => update({});
 }
 
