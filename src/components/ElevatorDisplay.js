@@ -7,7 +7,7 @@ import useForceUpdateOnEvents from '../hooks/useForceUpdateOnEvents';
 const ElevatorDisplay = ({elevator}) => {
 
 	const forceUpdate = useForceUpdate();
-	useForceUpdateOnEvents([elevator.onDoorsOpen]);
+	useForceUpdateOnEvents([elevator.on.doorsOpen]);
 
 	return (
 		<div className='elevator-display'>

@@ -1,6 +1,9 @@
+import provideDispatcher from '../utils/dispatcher';
+
 //////////////// CONSTANTS
 import {UP, DOWN} from '../constants/direction';
 import {STOPPED, OPEN, MOVING} from '../constants/elevatorState';
+import ELEVATOR_EVENTS from '../constants/elevatorEvents';
 //////////////// CONSTANTS // END
 
 const provideElevator = (floorCount) => {
@@ -14,7 +17,8 @@ const provideElevator = (floorCount) => {
 	let destinations = [];
 	let requests = [];
 
-	let openTimeout = 1;
+	let openTimeout = 0;
+	let timestepsBetweenFloors = 0;
 
 	const floors = [];
 	for (let i = 1; i <= floorCount; ++i) floors.push(i);
@@ -81,7 +85,7 @@ const provideElevator = (floorCount) => {
 
 	const closeDoors = () => {
 		elevatorState = STOPPED;
-		dispatchDoorsClose();
+		dispatch.doorsClose();
 	};
 
 	const stopElevator = () => elevatorState = STOPPED;
@@ -100,12 +104,12 @@ const provideElevator = (floorCount) => {
 		requests = requests.filter(requestFilter);
 
 		elevatorState = OPEN;
-		dispatchDoorsOpen();
+		dispatch.doorsOpen();
 	};
 
 	const updateCurrentFloor = () => {
 		currentFloor += currentDirection;
-		dispatchFloorChange();
+		dispatch.floorChange();
 	};
 
 	const updateCurrentDirection = () => {
@@ -138,7 +142,7 @@ const provideElevator = (floorCount) => {
 				return;
 
 			case MOVING:
-				if (moveTime) {
+				if (moveTime >= timestepsBetweenFloors) {
 					updateCurrentFloor();
 
 					if (shouldOpen()) {
@@ -155,25 +159,9 @@ const provideElevator = (floorCount) => {
 		}
 	};
 
-	///////////////// LISTENERS
-	const floorChangeListeners = [];
-	const doorsOpenListeners = [];
-	const doorsCloseListeners = [];
-	///////////////// LISTENERS // END
-
-	///////////////// DISPATCHERS
-	const dispatchFloorChange = () => {
-		floorChangeListeners.forEach(listener => listener());
-	};
-
-	const dispatchDoorsOpen = () => {
-		doorsOpenListeners.forEach(listener => listener());
-	};
-
-	const dispatchDoorsClose = () => {
-		doorsCloseListeners.forEach(listener => listener());
-	};
-	///////////////// DISPATCHERS // END
+	///////////////// DISPATCHER
+	const {dispatch, on} = provideDispatcher(ELEVATOR_EVENTS);
+	///////////////// DISPATCHER // END
 
 	///////////////// PUBLIC INTERFACE
 	return {
@@ -195,10 +183,7 @@ const provideElevator = (floorCount) => {
 			request => request.floor == floor && request.direction == direction
 		).length != 0,
 
-		onFloorChange: listener => floorChangeListeners.push(listener),
-		onDoorsOpen: listener => doorsOpenListeners.push(listener),
-		onDoorsClose: listener => doorsCloseListeners.push(listener),
-
+		on,
 	};
 	///////////////// PUBLIC INTERFACE // END
 

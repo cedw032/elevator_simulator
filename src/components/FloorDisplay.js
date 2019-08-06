@@ -8,9 +8,9 @@ const FloorDisplay = ({floor, elevator}) => {
 
 	const forceUpdate = useForceUpdate();
 	useForceUpdateOnEvents([
-		elevator.onFloorChange,
-		elevator.onDoorsOpen,
-		elevator.onDoorsClose,
+		elevator.on.floorChange,
+		elevator.on.doorsOpen,
+		elevator.on.doorsClose,
 	]);
 
 	const isDoorOpen = () => elevator.currentFloor() == floor && elevator.isOpen()
@@ -25,8 +25,8 @@ const FloorDisplay = ({floor, elevator}) => {
 	}
 
 	return (
-		<div className='row'>
-			<div className={cx(isAtThisFloor() && 'highlight')}>
+		<div className={cx('row', 'floor-display', isAtThisFloor() && 'highlight')}>
+			<div>
 				Floor {floor}
 			</div>
 			
@@ -42,7 +42,7 @@ const FloorDisplay = ({floor, elevator}) => {
 			
 			{isDoorOpen()
 				? <div className='highlight2'>Open</div>
-				: <div>Closed</div>
+				: <div></div>
 			}
 		</div>
 	);

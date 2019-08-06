@@ -1,10 +1,15 @@
 import {useEffect} from 'react';
 import useForceUpdate from './useForceUpdate';
 
-const useForceUpdateOnEvents = (subscribes) => {
+const useForceUpdateOnEvents = (subscribeMethods) => {
 	const forceUpdate = useForceUpdate();
 	useEffect(() => {
-		subscribes.forEach(subscribe => subscribe(forceUpdate));
+		const unsubscribeMethods = [];
+		subscribeMethods.forEach(
+			subscribe => unsubscribeMethods.push(subscribe(forceUpdate))
+		);
+
+		return () => unsubscribeMethods.forEach(unsubscribe => unsubscribe());
 	}, []);
 }
 

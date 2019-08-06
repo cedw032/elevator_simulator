@@ -31,11 +31,11 @@ const TimeController = ({elevator}) => {
 			return;
 		}
 
-		elevator.setOpenTimeout(1);
+		elevator.setOpenTimeout(0);
 	}
 
 	return (
-		<div className='row'>
+		<div className='row panel'>
 			<button 
 				children='|>'
 				onClick={applySingleTimestep}/>
