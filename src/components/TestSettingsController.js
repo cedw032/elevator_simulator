@@ -10,6 +10,12 @@ const TestSettingsController = ({usageSimulator}) => {
 	return (
 		<div className='row'>
 			<button 
+				onClick={() => {
+					usageSimulator.spawn();
+					forceUpdate();
+				}}
+				children='Random passenger'/>
+			<button 
 				className={cx(usageSimulator.enabled() && 'toggled')}
 				onClick={() => {
 					usageSimulator.toggle();

@@ -14,17 +14,27 @@ body {
       margin-right: 4px;
       text-align: center;
       font-size: 11px; }
-    body .app div.highlight {
-      background-color: #383536;
-      color: #E8E9EB; }
-    body .app div.highlight2 {
-      border-color: #ED474A;
-      color: #ED474A; }
-    body .app button:focus {
-      outline: none; }
-    body .app button.toggled {
-      border-color: #2274A5;
-      color: #2274A5; }
+    body .app div {
+      transition: 0.6s ease background-color, 0.6s ease color; }
+      body .app div.highlight {
+        background-color: #383536;
+        color: #E8E9EB;
+        transition: 0.6s ease background-color; }
+        body .app div.highlight div.hidden {
+          transition: 0.6s ease background-color, 0.6s ease color;
+          color: #383536; }
+      body .app div.hidden {
+        color: #2A2B2A; }
+      body .app div.highlight2 {
+        color: #ED474A; }
+    body .app button {
+      transition: 0.6s ease color, 0.6s ease border-color; }
+      body .app button:focus {
+        outline: none; }
+      body .app button.toggled {
+        transition: none;
+        border-color: #2274A5;
+        color: #2274A5; }
     body .app .floor-bank {
       display: flex;
       flex-direction: column-reverse; }

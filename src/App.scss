@@ -29,13 +29,26 @@ body {
 
 		div {
 
+			transition: 0.6s ease background-color, 0.6s ease color;
+
 			&.highlight {
 				background-color: $shade1;
 				color: $shade2;
+				transition: 0.6s ease background-color;
+
+				div {
+					&.hidden {
+						transition: 0.6s ease background-color, 0.6s ease color;
+						color: $shade1;
+					}
+				}
+			}
+
+			&.hidden {
+				color: $shade4;
 			}
 
 			&.highlight2 {
-				border-color: $shade5;
 				color: $shade5;
 			}
 		}
@@ -45,8 +58,10 @@ body {
 				outline: none;
 			}
 
+			transition: 0.6s ease color, 0.6s ease border-color;
+
 			&.toggled {
-				//background-color: $shade1;
+				transition: none;
 				border-color: $shade6;
 				color: $shade6;
 			}

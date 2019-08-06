@@ -38,7 +38,7 @@ const FloorDisplay = ({floor, elevator}) => {
 			
 			{isDoorOpen()
 				? <div className='highlight2'>Open</div>
-				: <div></div>
+				: <div className='hidden'>Open</div>
 			}
 		</div>
 	);
