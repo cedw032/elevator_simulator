@@ -35,7 +35,7 @@ const TimeController = ({elevator}) => {
 	}
 
 	return (
-		<div className='row panel'>
+		<div className='row'>
 			<button 
 				children='|>'
 				onClick={applySingleTimestep}/>

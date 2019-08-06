@@ -6,8 +6,10 @@ import useForceUpdateOnEvents from '../hooks/useForceUpdateOnEvents';
 
 const ElevatorDisplay = ({elevator}) => {
 
-	const forceUpdate = useForceUpdate();
-	useForceUpdateOnEvents([elevator.on.doorsOpen]);
+	useForceUpdateOnEvents([
+		elevator.on.doorsOpen,
+		elevator.on.destinationAdded,
+	]);
 
 	return (
 		<div className='elevator-display'>
@@ -18,10 +20,7 @@ const ElevatorDisplay = ({elevator}) => {
 					className={
 						cx(elevator.isDestination(floor) && 'toggled')
 					}
-					onClick={() => {
-						elevator.addDestination(floor);
-						forceUpdate();
-					}}/>
+					onClick={() => elevator.addDestination(floor)}/>
 			)}
 		</div>
 	);

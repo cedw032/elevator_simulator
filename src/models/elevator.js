@@ -67,6 +67,8 @@ const provideElevator = (floorCount) => {
 		request => request.direction == currentDirection
 	);
 
+	const isOpen = () => elevatorState == OPEN;
+
 	///////////////// INTERNAL DERIVED STATE // END
 
 
@@ -74,9 +76,13 @@ const provideElevator = (floorCount) => {
 	const addDestination = floor => {
 		destinations.push(floor);
 		if (elevatorState == OPEN) closeDoors();
+		dispatch.destinationAdded();
 	};
 
-	const requestElevator = (floor, direction) => requests.push({floor, direction})
+	const requestElevator = (floor, direction) => {
+		requests.push({floor, direction});
+		dispatch.elevatorRequested();
+	}
 
 	const moveToNextFloor = () => {
 		moveTime = 0;
@@ -104,7 +110,7 @@ const provideElevator = (floorCount) => {
 		requests = requests.filter(requestFilter);
 
 		elevatorState = OPEN;
-		dispatch.doorsOpen();
+		dispatch.doorsOpen(currentFloor, currentDirection, canChangeDirection());
 	};
 
 	const updateCurrentFloor = () => {
@@ -118,28 +124,34 @@ const provideElevator = (floorCount) => {
 		}
 	}
 
+	const forceOpenTimeout = () => {
+		if (isOpen()) {
+			openTime = openTimeout;
+		}
+	}
+
 	const elapseTime = () => {
 		switch (elevatorState) {
 			case STOPPED:
 				if (shouldOpen()) {
 					openDoors();
-					return;
+					break;
 				}
 
 				if (hasFloorToMoveTo()) {
 					updateCurrentDirection();
 					moveToNextFloor();
-					return;
+					break;
 				}
-				return;
+				break;
 
 			case OPEN:
 				if (openTime >= openTimeout) {
 					closeDoors();
-					return;
+					break;
 				}
 				++openTime;
-				return;
+				break;
 
 			case MOVING:
 				if (moveTime >= timestepsBetweenFloors) {
@@ -147,16 +159,18 @@ const provideElevator = (floorCount) => {
 
 					if (shouldOpen()) {
 						stopElevator();
-						return;
+						break;
 					}
 
 					moveToNextFloor();
-					return;
+					break;
 				}
 
 				++moveTime;
-				return;
+				break;
 		}
+
+		dispatch.timeElapsed();
 	};
 
 	///////////////// DISPATCHER
@@ -168,12 +182,13 @@ const provideElevator = (floorCount) => {
 		addDestination,
 		requestElevator,
 		elapseTime,
+		forceOpenTimeout,
 
 		setOpenTimeout: value => openTimeout = value,
 
 		currentFloor: () => currentFloor,
 		floors: () => [...floors],
-		isOpen: () => elevatorState == OPEN,
+		isOpen,
 
 		isDestination: floor => destinations.filter(
 			destination => destination == floor

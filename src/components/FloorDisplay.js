@@ -1,16 +1,15 @@
 import React, {useEffect} from 'react';
 import cx from 'classnames';
 import {DOWN, UP} from '../constants/direction';
-import useForceUpdate from '../hooks/useForceUpdate';
 import useForceUpdateOnEvents from '../hooks/useForceUpdateOnEvents';
 
 const FloorDisplay = ({floor, elevator}) => {
 
-	const forceUpdate = useForceUpdate();
 	useForceUpdateOnEvents([
 		elevator.on.floorChange,
 		elevator.on.doorsOpen,
 		elevator.on.doorsClose,
+		elevator.on.elevatorRequested,
 	]);
 
 	const isDoorOpen = () => elevator.currentFloor() == floor && elevator.isOpen()
@@ -19,10 +18,7 @@ const FloorDisplay = ({floor, elevator}) => {
 
 	const isRequested = direction => elevator.isRequested(floor, direction)
 
-	const requestElevator = direction => () => {
-		elevator.requestElevator(floor, direction);
-		forceUpdate();
-	}
+	const requestElevator = direction => () => elevator.requestElevator(floor, direction);
 
 	return (
 		<div className={cx('row', 'floor-display', isAtThisFloor() && 'highlight')}>
