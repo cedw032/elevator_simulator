@@ -56,26 +56,36 @@ const provideElevator = (floorCount) => {
 	};
 
 	const destinationsAtCurrentFloor = () => destinations.filter(
-		destination => destination == currentFloor
+		destination => destination === currentFloor
 	);
 
 	const requestsAtCurrentFloor = () => requests.filter(
-		request => request.floor == currentFloor
+		request => request.floor === currentFloor
 	);
 
 	const requestsAlsoMatchingCurrentDirection =  () => requestsAtCurrentFloor().filter(
-		request => request.direction == currentDirection
+		request => request.direction === currentDirection
 	);
 
-	const isOpen = () => elevatorState == OPEN;
+	const isOpen = () => elevatorState === OPEN;
 
 	///////////////// INTERNAL DERIVED STATE // END
 
 
 	///////////////// ACTIONS
+	const reset = () => {
+		elevatorState = STOPPED;
+		openTime = 0;
+		moveTime = 0;
+		currentFloor = 1;
+		currentDirection = UP;
+		destinations = [];
+		requests = [];
+	}
+
 	const addDestination = floor => {
 		destinations.push(floor);
-		if (elevatorState == OPEN) allowDoorsToClose();
+		if (elevatorState === OPEN) allowDoorsToClose();
 		dispatch.destinationAdded();
 	};
 
@@ -100,12 +110,12 @@ const provideElevator = (floorCount) => {
 		openTime = 0;
 
 		destinations = destinations.filter(
-			destination => destination != currentFloor
+			destination => destination !== currentFloor
 		);
 
 		const requestFilter = canChangeDirection()
-			? request => request.floor != currentFloor
-			: request => request.floor != currentFloor || request.direction != currentDirection;
+			? request => request.floor !== currentFloor
+			: request => request.floor !== currentFloor || request.direction !== currentDirection;
 
 		requests = requests.filter(requestFilter);
 
@@ -195,12 +205,12 @@ const provideElevator = (floorCount) => {
 		isOpen,
 
 		isDestination: floor => destinations.filter(
-			destination => destination == floor
-		).length != 0,
+			destination => destination === floor
+		).length !== 0,
 
 		isRequested: (floor, direction) => requests.filter(
-			request => request.floor == floor && request.direction == direction
-		).length != 0,
+			request => request.floor === floor && request.direction === direction
+		).length !== 0,
 
 		on,
 	};

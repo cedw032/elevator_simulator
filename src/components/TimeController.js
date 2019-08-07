@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import cx from 'classnames';
 import useAsyncState from '../hooks/useAsyncState';
 

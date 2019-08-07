@@ -1,7 +1,5 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import cx from 'classnames';
-import {DOWN, UP} from '../constants/direction';
-import useForceUpdate from '../hooks/useForceUpdate';
 import useForceUpdateOnEvents from '../hooks/useForceUpdateOnEvents';
 
 const ElevatorDisplay = ({elevator}) => {
