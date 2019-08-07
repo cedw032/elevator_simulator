@@ -28,7 +28,7 @@ const provideUsageSimulator = elevator => {
 
 		const randomFloor = () => randomInteger(
 			elevator.floors()[0], 
-			elevator.floors().slice(-1)
+			+elevator.floors().slice(-1)
 		);
 
 		const entering = 1;
