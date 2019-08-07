@@ -62,7 +62,7 @@ test(`Passenger summons lift on level 6 to go down. Passenger on level 4 summons
 	() => testScenario(
 		[
 			{origin: 6, destination: 1},
-			{origin: 4, destination: 3},
+			{origin: 4, destination: 1},
 		],
 		[6, 4, 1]
 	)
