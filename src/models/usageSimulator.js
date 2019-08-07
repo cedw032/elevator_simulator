@@ -67,23 +67,14 @@ const provideUsageSimulator = elevator => {
 		const cancelListener = elevator.on.doorsOpen((floor, elevatorDirection, canChangeDirection) => {
 			if (!destinationEntered && floor === origin) {
 				if (canChangeDirection || elevatorDirection === direction) {
-					let skip = true;
-					const cancelTimeout = elevator.on.timeElapsed(() => {
-						if (skip) {
-							skip = false;
-							return;
-						}
-						elevator.addDestination(destination);	
-						cancelTimeout();	
-					});
-					
+					elevator.addDestination(destination);		
 					destinationEntered = true;
 					return;
 				}
 			}
 
 			if (destinationEntered && floor === destination) {
-				elevator.forceOpenTimeout();
+				elevator.allowDoorsToClose();
 				cancelListener();
 			}
 		});

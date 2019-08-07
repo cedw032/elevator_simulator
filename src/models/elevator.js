@@ -75,7 +75,7 @@ const provideElevator = (floorCount) => {
 	///////////////// ACTIONS
 	const addDestination = floor => {
 		destinations.push(floor);
-		if (elevatorState == OPEN) closeDoors();
+		if (elevatorState == OPEN) allowDoorsToClose();
 		dispatch.destinationAdded();
 	};
 
@@ -122,13 +122,17 @@ const provideElevator = (floorCount) => {
 		if (canChangeDirection()) {
 			currentDirection *= DOWN;
 		}
-	}
+	};
 
-	const forceOpenTimeout = () => {
+	const canDoorsClose = () => {
+		return openTime >= openTimeout;
+	};
+
+	const allowDoorsToClose = () => {
 		if (isOpen()) {
 			openTime = openTimeout;
 		}
-	}
+	};
 
 	const elapseTime = () => {
 		switch (elevatorState) {
@@ -146,7 +150,7 @@ const provideElevator = (floorCount) => {
 				break;
 
 			case OPEN:
-				if (openTime >= openTimeout) {
+				if (canDoorsClose()) {
 					closeDoors();
 					break;
 				}
@@ -182,7 +186,7 @@ const provideElevator = (floorCount) => {
 		addDestination,
 		requestElevator,
 		elapseTime,
-		forceOpenTimeout,
+		allowDoorsToClose,
 
 		setOpenTimeout: value => openTimeout = value,
 
