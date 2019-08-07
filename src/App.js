@@ -8,6 +8,7 @@ import TimeController from './components/TimeController'
 import TestSettingsController from './components/TestSettingsController'
 import FloorDisplay from './components/FloorDisplay';
 import ElevatorDisplay from './components/ElevatorDisplay';
+import AboutDisplay from './components/AboutDisplay';
 
 const FLOOR_COUNT = 10;
 
@@ -37,6 +38,7 @@ function App() {
 				</div>
 				<ElevatorDisplay elevator={elevator}/>
 			</div>
+			<AboutDisplay/>
 		</div>
 	);
 }
