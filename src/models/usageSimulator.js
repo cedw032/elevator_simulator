@@ -60,7 +60,14 @@ const provideUsageSimulator = elevator => {
 
 		let destinationEntered = false;
 
-		const cancelListener = elevator.on.doorsOpen((floor, elevatorDirection, canChangeDirection) => {
+		const cancelListeners = () => {
+			cancelResetListener();
+			cancelDoorsOpenListener();
+		}
+
+		const cancelResetListener = elevator.on.reset(cancelListeners);
+
+		const cancelDoorsOpenListener = elevator.on.doorsOpen((floor, elevatorDirection, canChangeDirection) => {
 			if (!destinationEntered && floor === origin) {
 				if (canChangeDirection || elevatorDirection === direction) {
 					elevator.addDestination(destination);		
@@ -71,7 +78,7 @@ const provideUsageSimulator = elevator => {
 
 			if (destinationEntered && floor === destination) {
 				elevator.allowDoorsToClose();
-				cancelListener();
+				cancelListeners();
 			}
 		});
 
