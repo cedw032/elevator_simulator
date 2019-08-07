@@ -11,9 +11,9 @@ const runForTestPeriod = (elevator) => {
 const throwIfExpectedDoesNotMatchActual = (expected, actual) => {
 
 	const throwMessage = () => {
-		throw new Error(`
+		throw `
 			${expected} does not match ${actual} 
-		`);
+		`;
 	}
 
 	if (expected.length !== actual.length) throwMessage();
@@ -62,7 +62,7 @@ test(`Passenger summons lift on level 6 to go down. Passenger on level 4 summons
 	() => testScenario(
 		[
 			{origin: 6, destination: 1},
-			{origin: 4, destination: 1},
+			{origin: 4, destination: 3},
 		],
 		[6, 4, 1]
 	)
