@@ -10,6 +10,7 @@ const FloorDisplay = ({floor, elevator}) => {
 		elevator.on.doorsOpen,
 		elevator.on.doorsClose,
 		elevator.on.elevatorRequested,
+		elevator.on.reset,
 	]);
 
 	const isDoorOpen = () => elevator.currentFloor() === floor && elevator.isOpen()

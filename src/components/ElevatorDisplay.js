@@ -7,6 +7,7 @@ const ElevatorDisplay = ({elevator}) => {
 	useForceUpdateOnEvents([
 		elevator.on.doorsOpen,
 		elevator.on.destinationAdded,
+		elevator.on.reset,
 	]);
 
 	return (

@@ -21,7 +21,9 @@ function App() {
 			
 			<div className='panel row top-bar'>
 				<TimeController elevator={elevator}/>
-				<TestSettingsController usageSimulator={usageSimulator}/>
+				<TestSettingsController 
+					usageSimulator={usageSimulator}
+					elevator={elevator}/>
 			</div>
 
 			<div className='row'>

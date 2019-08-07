@@ -5,6 +5,7 @@ const ELEVATOR_EVENTS = [
 	'timeElapsed',
 	'elevatorRequested',
 	'destinationAdded',
+	'reset',
 ];
 
 export default ELEVATOR_EVENTS;

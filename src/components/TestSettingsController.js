@@ -3,7 +3,7 @@ import cx from 'classnames';
 import useForceUpdate from '../hooks/useForceUpdate';
 
 
-const TestSettingsController = ({usageSimulator}) => {
+const TestSettingsController = ({usageSimulator, elevator}) => {
 
 	const forceUpdate = useForceUpdate();
 
@@ -12,7 +12,6 @@ const TestSettingsController = ({usageSimulator}) => {
 			<button 
 				onClick={() => {
 					usageSimulator.spawn();
-					forceUpdate();
 				}}
 				children='Random passenger'/>
 			<button 
@@ -22,6 +21,12 @@ const TestSettingsController = ({usageSimulator}) => {
 					forceUpdate();
 				}}
 				children='Simulate usage'/>
+
+			<button 
+				onClick={() => {
+					elevator.reset();
+				}}
+				children='x'/>
 		</div>
 	);
 };

@@ -81,6 +81,7 @@ const provideElevator = (floorCount) => {
 		currentDirection = UP;
 		destinations = [];
 		requests = [];
+		dispatch.reset();
 	}
 
 	const addDestination = floor => {
@@ -197,6 +198,7 @@ const provideElevator = (floorCount) => {
 		requestElevator,
 		elapseTime,
 		allowDoorsToClose,
+		reset,
 
 		setOpenTimeout: value => openTimeout = value,
 
