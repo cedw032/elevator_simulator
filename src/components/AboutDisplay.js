@@ -3,7 +3,7 @@ import React from 'react';
 const AboutDisplay = () => {
 	return (
 		<div className='panel'>
-			<h4>A bried exlanation of the UI</h4>
+			<h4>A brief exlanation of the UI</h4>
 
 			<div className='panel'>
 				<h3>Top bar</h3>
@@ -12,7 +12,7 @@ const AboutDisplay = () => {
 					<b>Step by step mode: </b> Clicking this button will enter step by step mode.
 					This means the elevator will only run one cycle of its state machine with each 
 					click on this button.  This can be useful for watching what the elevator does 
-					under certain situations.
+					under certain circumstances.
 				</p>
 
 				<p>
