@@ -5,7 +5,7 @@ import useAsyncState from '../hooks/useAsyncState';
 const AUTOPLAY_INTERVALS = [800, 140];
 const AUTOPLAY_OPEN_TIMEOUT = 5;
 
-const TimeController = ({passTime, setOpenTimeout}) => {
+const TimeController = ({passTime, setOpenTimeout, setQuickAnimations}) => {
 
 	const [asyncAutoplay, setAutoplay] = useAsyncState(true);
 	const [asyncAutoplaySpeed, setAutoplaySpeed] = useAsyncState(0);
@@ -30,6 +30,7 @@ const TimeController = ({passTime, setOpenTimeout}) => {
 
 	const changePlaySpeed = () => {
 		setAutoplaySpeed((asyncAutoplaySpeed.value + 1) % AUTOPLAY_INTERVALS.length);
+		setQuickAnimations(asyncAutoplaySpeed.value);
 	};
 
 	const startAutoplay = () => {

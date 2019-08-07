@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import cx from 'classnames';
 import './App.css';
 
 import provideElevator from './models/elevator';
@@ -26,6 +27,7 @@ function App() {
 	const [requests, setRequests] = useState([]);
 	const [doorsOpen, setDoorsOpen] = useState(false);
 	const [usageSimulatorIsEnabled, setusageSimulatorIsEnabled] = useState(false);
+	const [quickAnimations, setQuickAnimations] = useState(false);
 
 	useEffect(() => {
 
@@ -68,12 +70,13 @@ function App() {
 	} = usageSimulator;
 
 	return (
-		<div className='app'>
+		<div className={cx('app', quickAnimations && 'quick-animations')}>
 			
 			<div className='panel row top-bar'>
 				<TimeController 
 					passTime={passTime}
-					setOpenTimeout={setOpenTimeout}/>
+					setOpenTimeout={setOpenTimeout}
+					setQuickAnimations={setQuickAnimations}/>
 				<TestSettingsController 
 					spawnPassenger={spawnPassenger}
 					toggleUsageSimulator={toggleUsageSimulator}

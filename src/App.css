@@ -3,6 +3,12 @@ body {
   color: #DDB967; }
   body .app {
     max-width: 350px; }
+    body .app.quick-animations div {
+      transition: 0.1s ease background-color, 0.1s ease color; }
+      body .app.quick-animations div.highlight {
+        transition: 0.1s ease background-color; }
+        body .app.quick-animations div.highlight div.hidden {
+          transition: 0.1s ease background-color, 0.1s ease color; }
     body .app .panel,
     body .app button {
       background-color: #2A2B2A;
