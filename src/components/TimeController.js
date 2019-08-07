@@ -2,12 +2,13 @@ import React, {useEffect} from 'react';
 import cx from 'classnames';
 import useAsyncState from '../hooks/useAsyncState';
 
-const AUTOPLAY_INTERVAL = 800;
+const AUTOPLAY_INTERVALS = [800, 140];
 const AUTOPLAY_OPEN_TIMEOUT = 5;
 
 const TimeController = ({elevator}) => {
 
 	const [asyncAutoplay, setAutoplay] = useAsyncState(true);
+	const [asyncAutoplaySpeed, setAutoplaySpeed] = useAsyncState(0);
 
 	useEffect(() => {
 		if (asyncAutoplay.value) startAutoplay();
@@ -18,6 +19,20 @@ const TimeController = ({elevator}) => {
 		elevator.elapseTime();
 	}
 
+	const handleAutoplayButtonClick = () => {
+		if (asyncAutoplay.value) {
+			changePlaySpeed();
+			return;
+		}
+
+		startAutoplay();
+	}
+
+	const changePlaySpeed = () => {
+		setAutoplaySpeed((asyncAutoplaySpeed.value + 1) % AUTOPLAY_INTERVALS.length);
+		console.log('autoplay speed', asyncAutoplaySpeed.value);
+	};
+
 	const startAutoplay = () => {
 		setAutoplay(true);
 		elevator.setOpenTimeout(AUTOPLAY_OPEN_TIMEOUT);
@@ -27,7 +42,10 @@ const TimeController = ({elevator}) => {
 	const applyAutoplayTimestep = () => {
 		if (asyncAutoplay.value) {
 			elevator.elapseTime();
-			setTimeout(applyAutoplayTimestep, AUTOPLAY_INTERVAL);
+			setTimeout(
+				applyAutoplayTimestep, 
+				AUTOPLAY_INTERVALS[asyncAutoplaySpeed.value]
+			);
 			return;
 		}
 
@@ -41,9 +59,9 @@ const TimeController = ({elevator}) => {
 				onClick={applySingleTimestep}/>
 
 			<button 
-				children='>>'
+				children={asyncAutoplaySpeed.value ? '>>' : '>'}
 				className={cx(asyncAutoplay.value && 'toggled')}
-				onClick={startAutoplay}/>
+				onClick={handleAutoplayButtonClick}/>
 		</div>
 	);
 };
