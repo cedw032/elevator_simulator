@@ -1,52 +1,39 @@
 import React from 'react';
 import cx from 'classnames';
 import {DOWN, UP} from '../constants/direction';
-import useForceUpdateOnEvents from '../hooks/useForceUpdateOnEvents';
 
-const FloorDisplay = ({floor, elevator}) => {
+const FloorDisplay = ({floor, floors, isCurrentFloor, elevatorDoorsOpen, requests, requestElevator}) => {
 
-	useForceUpdateOnEvents([
-		elevator.on.floorChange,
-		elevator.on.doorsOpen,
-		elevator.on.doorsClose,
-		elevator.on.elevatorRequested,
-		elevator.on.reset,
-	]);
+	const isUpRequested = !!requests.find(request => request.direction === UP);
+	const isDownRequested = !!requests.find(request => request.direction === DOWN);
 
-	const isDoorOpen = () => elevator.currentFloor() === floor && elevator.isOpen()
-
-	const isAtThisFloor = () => elevator.currentFloor() === floor;
-
-	const thisIsTopFloor = () => floor === +elevator.floors().slice(-1);
-
-	const thisIsBottomFloor = () => floor === elevator.floors()[0];
-
-	const isRequested = direction => elevator.isRequested(floor, direction)
-
-	const requestElevator = direction => () => elevator.requestElevator(floor, direction);
+	const isTopFloor = floor === +floors.slice(-1);
+	const isBottomFloor = floor === floors[0];
 
 	return (
-		<div className={cx('row', 'floor-display', isAtThisFloor() && 'highlight')}>
-			<div>
-				Floor {floor}
-			</div>
+		<div className={cx('row', 'floor-display', isCurrentFloor && 'highlight')}>
+			
+			<div>Floor {floor}</div>
 			
 			<button 
-				className={cx(isRequested(DOWN) && 'toggled')}
-				onClick={requestElevator(DOWN)}
-				disabled={thisIsBottomFloor()}
+				className={cx(isDownRequested && 'toggled')}
+				onClick={() => requestElevator(floor, DOWN)}
+				disabled={isBottomFloor}
 				children='Down'/>
 			
 			<button 
-				className={cx(isRequested(UP) && 'toggled')}
-				onClick={requestElevator(UP)}
-				disabled={thisIsTopFloor()}
+				className={cx(isUpRequested && 'toggled')}
+				onClick={() => requestElevator(floor, UP)}
+				disabled={isTopFloor}
 				children='Up'/>
-			
-			{isDoorOpen()
-				? <div className='highlight2'>Open</div>
-				: <div className='hidden'>Open</div>
-			}
+
+			<div 
+				className={cx(elevatorDoorsOpen && isCurrentFloor 
+					? 'highlight2' 
+					: 'hidden'
+				)}
+				children='Open'/>
+
 		</div>
 	);
 };

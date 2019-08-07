@@ -1,10 +1,10 @@
 const ELEVATOR_EVENTS = [
 	'doorsOpen',
-	'doorsClose',
-	'floorChange',
-	'timeElapsed',
-	'elevatorRequested',
-	'destinationAdded',
+	'doorsChange',
+	'floorChanges',
+	'timePasses',
+	'requestsChange',
+	'destinationsChange',
 	'reset',
 ];
 

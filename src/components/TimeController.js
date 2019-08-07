@@ -5,7 +5,7 @@ import useAsyncState from '../hooks/useAsyncState';
 const AUTOPLAY_INTERVALS = [800, 140];
 const AUTOPLAY_OPEN_TIMEOUT = 5;
 
-const TimeController = ({elevator}) => {
+const TimeController = ({passTime, setOpenTimeout}) => {
 
 	const [asyncAutoplay, setAutoplay] = useAsyncState(true);
 	const [asyncAutoplaySpeed, setAutoplaySpeed] = useAsyncState(0);
@@ -16,7 +16,7 @@ const TimeController = ({elevator}) => {
 
 	const applySingleTimestep = () => {
 		setAutoplay(false);
-		elevator.elapseTime();
+		passTime();
 	}
 
 	const handleAutoplayButtonClick = () => {
@@ -30,18 +30,17 @@ const TimeController = ({elevator}) => {
 
 	const changePlaySpeed = () => {
 		setAutoplaySpeed((asyncAutoplaySpeed.value + 1) % AUTOPLAY_INTERVALS.length);
-		console.log('autoplay speed', asyncAutoplaySpeed.value);
 	};
 
 	const startAutoplay = () => {
 		setAutoplay(true);
-		elevator.setOpenTimeout(AUTOPLAY_OPEN_TIMEOUT);
+		setOpenTimeout(AUTOPLAY_OPEN_TIMEOUT);
 		setTimeout(applyAutoplayTimestep);
 	}
 
 	const applyAutoplayTimestep = () => {
 		if (asyncAutoplay.value) {
-			elevator.elapseTime();
+			passTime();
 			setTimeout(
 				applyAutoplayTimestep, 
 				AUTOPLAY_INTERVALS[asyncAutoplaySpeed.value]
@@ -49,7 +48,7 @@ const TimeController = ({elevator}) => {
 			return;
 		}
 
-		elevator.setOpenTimeout(0);
+		setOpenTimeout(0);
 	}
 
 	return (

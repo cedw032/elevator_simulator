@@ -1,25 +1,21 @@
 import React from 'react';
 import cx from 'classnames';
-import useForceUpdateOnEvents from '../hooks/useForceUpdateOnEvents';
 
-const ElevatorDisplay = ({elevator}) => {
+const ElevatorDisplay = ({floors, destinations, addDestination}) => {
 
-	useForceUpdateOnEvents([
-		elevator.on.doorsOpen,
-		elevator.on.destinationAdded,
-		elevator.on.reset,
-	]);
+	const isDestination = floor => 
+		!!destinations.find(destination => destination === floor);
 
 	return (
 		<div className='elevator-display'>
-			{elevator.floors().map((floor) =>
+			{floors.map((floor) =>
 				<button
 					children={floor}
 					key={floor}
 					className={
-						cx(elevator.isDestination(floor) && 'toggled')
+						cx(isDestination(floor) && 'toggled')
 					}
-					onClick={() => elevator.addDestination(floor)}/>
+					onClick={() => addDestination(floor)}/>
 			)}
 		</div>
 	);

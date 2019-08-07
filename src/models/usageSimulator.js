@@ -1,23 +1,22 @@
 import {UP, DOWN} from '../constants/direction';
+import provideDispatcher from '../utils/dispatcher'
 
-const provideUsageSimulator = elevator => {
+const provideUsageSimulator = (elevator, floors) => {
 
-	let unsubscribeTimeElapsed;
+	let unsubscribeFromTimePasses;
 	let spawnChance = 0.16;
-
-	const enabled = () => {
-		return !!unsubscribeTimeElapsed;
-	}
 
 	const toggle = () => {
 
-		if (enabled()) {
-			unsubscribeTimeElapsed();
-			unsubscribeTimeElapsed = undefined;
+		if (unsubscribeFromTimePasses) {
+			unsubscribeFromTimePasses();
+			unsubscribeFromTimePasses = undefined;
+			dispatch.toggle(false);
 			return;
 		}
 
-		unsubscribeTimeElapsed = elevator.on.timeElapsed(elapseTime);
+		unsubscribeFromTimePasses = elevator.on.timePasses(passTime);
+		dispatch.toggle(true);
 
 	};
 
@@ -27,8 +26,8 @@ const provideUsageSimulator = elevator => {
 			Math.round((max - min) * Math.random()) + min;
 
 		const randomFloor = () => randomInteger(
-			elevator.floors()[0], 
-			+elevator.floors().slice(-1)
+			floors[0], 
+			+floors.slice(-1)
 		);
 
 		const entering = 1;
@@ -39,13 +38,13 @@ const provideUsageSimulator = elevator => {
 
 		switch (randomInteger(entering, exiting)) {
 			case entering:
-				origin = elevator.floors()[0];
+				origin = floors[0];
 				destination = randomFloor();
 				break;
 
 			case exiting:
 				origin = randomFloor();
-				destination = elevator.floors()[0];
+				destination = floors[0];
 				break;
 
 			default:
@@ -86,7 +85,7 @@ const provideUsageSimulator = elevator => {
 		
 	}
 
-	const elapseTime = () => {
+	const passTime = () => {
 
 		if (Math.random() < spawnChance) {
 			spawn();
@@ -94,10 +93,12 @@ const provideUsageSimulator = elevator => {
 
 	};
 
+	const {dispatch, on} = provideDispatcher(['toggle']);
+
 	return {
 		toggle,
 		spawn,
-		enabled,
+		on,
 	};
 
 }

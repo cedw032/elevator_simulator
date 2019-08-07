@@ -15,10 +15,10 @@ const useAsyncState = (initial) => {
 	}
 
 	const updateValue = (value) => {
-		//if (value !== state.value) {
+		if (value !== state.value) {
 			state.value = value;
 			forceUpdate();
-		//}
+		}
 	};
 
 	return [state, updateValue];

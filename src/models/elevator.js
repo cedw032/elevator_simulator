@@ -10,18 +10,14 @@ const provideElevator = (floorCount) => {
 
 	//////////////// INTERNAL STATE
 	let elevatorState = STOPPED;
-	let openTime = 0;
-	let moveTime = 0;
 	let currentFloor = 1;
 	let currentDirection = UP;
 	let destinations = [];
 	let requests = [];
-
-	let openTimeout = 0;
 	let timestepsBetweenFloors = 0;
-
-	const floors = [];
-	for (let i = 1; i <= floorCount; ++i) floors.push(i);
+	let openTimeout = 0;
+	let moveTime = 0;
+	let openTime = 0;
 	///////////////// INTERNAL STATE // END
 
 	///////////////// INTERNAL DERIVED STATE
@@ -81,18 +77,23 @@ const provideElevator = (floorCount) => {
 		currentDirection = UP;
 		destinations = [];
 		requests = [];
-		dispatch.reset();
+		dispatch.reset(
+			currentFloor, 
+			[...destinations], 
+			[...requests], 
+			isOpen(),
+		);
 	}
 
 	const addDestination = floor => {
 		destinations.push(floor);
 		if (elevatorState === OPEN) allowDoorsToClose();
-		dispatch.destinationAdded();
+		dispatch.destinationsChange([...destinations]);
 	};
 
 	const requestElevator = (floor, direction) => {
 		requests.push({floor, direction});
-		dispatch.elevatorRequested();
+		dispatch.requestsChange([...requests]);
 	}
 
 	const moveToNextFloor = () => {
@@ -102,7 +103,7 @@ const provideElevator = (floorCount) => {
 
 	const closeDoors = () => {
 		elevatorState = STOPPED;
-		dispatch.doorsClose();
+		dispatch.doorsChange(isOpen());
 	};
 
 	const stopElevator = () => elevatorState = STOPPED;
@@ -121,12 +122,16 @@ const provideElevator = (floorCount) => {
 		requests = requests.filter(requestFilter);
 
 		elevatorState = OPEN;
+
 		dispatch.doorsOpen(currentFloor, currentDirection, canChangeDirection());
+		dispatch.doorsChange(isOpen());
+		dispatch.destinationsChange([...destinations]);
+		dispatch.requestsChange([...requests]);
 	};
 
 	const updateCurrentFloor = () => {
 		currentFloor += currentDirection;
-		dispatch.floorChange();
+		dispatch.floorChanges(currentFloor);
 	};
 
 	const updateCurrentDirection = () => {
@@ -145,7 +150,11 @@ const provideElevator = (floorCount) => {
 		}
 	};
 
-	const elapseTime = () => {
+	const setOpenTimeout = (value) => {
+		openTimeout = value;
+	}
+
+	const passTime = () => {
 		switch (elevatorState) {
 			case STOPPED:
 				if (shouldOpen()) {
@@ -185,7 +194,7 @@ const provideElevator = (floorCount) => {
 				break;
 		}
 
-		dispatch.timeElapsed();
+		dispatch.timePasses();
 	};
 
 	///////////////// DISPATCHER
@@ -196,24 +205,10 @@ const provideElevator = (floorCount) => {
 	return {
 		addDestination,
 		requestElevator,
-		elapseTime,
+		passTime,
+		setOpenTimeout,
 		allowDoorsToClose,
 		reset,
-
-		setOpenTimeout: value => openTimeout = value,
-
-		currentFloor: () => currentFloor,
-		floors: () => [...floors],
-		isOpen,
-
-		isDestination: floor => destinations.filter(
-			destination => destination === floor
-		).length !== 0,
-
-		isRequested: (floor, direction) => requests.filter(
-			request => request.floor === floor && request.direction === direction
-		).length !== 0,
-
 		on,
 	};
 	///////////////// PUBLIC INTERFACE // END

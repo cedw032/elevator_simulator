@@ -5,7 +5,7 @@ import provideElevator from './models/elevator';
 import {UP, DOWN} from './constants/direction';
 
 const runForTestPeriod = (elevator) => {
-	for (let i = 0; i < 10000; ++i) elevator.elapseTime();
+	for (let i = 0; i < 10000; ++i) elevator.passTime();
 }
 
 const throwIfExpectedDoesNotMatchActual = (expected, actual) => {
