@@ -2,60 +2,56 @@ import {UP, DOWN} from '../constants/direction';
 
 const provideUsageSimulator = elevator => {
 
-	let unsubscribeElapsedTime;
+	let unsubscribeTimeElapsed;
 	let spawnChance = 0.16;
 
 	const enabled = () => {
-		return !!unsubscribeElapsedTime;
+		return !!unsubscribeTimeElapsed;
 	}
 
 	const toggle = () => {
 
 		if (enabled()) {
-			unsubscribeElapsedTime();
-			unsubscribeElapsedTime = undefined;
+			unsubscribeTimeElapsed();
+			unsubscribeTimeElapsed = undefined;
 			return;
 		}
 
-		unsubscribeElapsedTime = elevator.on.timeElapsed(elapseTime);
+		unsubscribeTimeElapsed = elevator.on.timeElapsed(elapseTime);
 
 	};
 
 	const spawn = () => {
-		const randomInteger = (min, max) => {
-			const spread = max - min + 1;
-			return Math.floor(spread * Math.random()) + min;
-		}
+		
+		const randomInteger = (min, max) => 
+			Math.round((max - min) * Math.random()) + min;
 
-		const entering = 0;
-		const exiting = 1;
-		const otherTravel = 2;
+		const randomFloor = () => randomInteger(
+			elevator.floors()[0], 
+			elevator.floors().slice(-1)
+		);
+
+		const entering = 1;
+		const exiting = -1;
 
 		let origin = 0;
 		let destination = 0;
 
-		switch (randomInteger(entering, otherTravel)) {
+		switch (randomInteger(entering, exiting)) {
 			case entering:
-				origin = elevator.floors[0];
+				origin = elevator.floors()[0];
+				destination = randomFloor();
 				break;
 
 			case exiting:
-				destination = elevator.floors[0];
+				origin = randomFloor();
+				destination = elevator.floors()[0];
 				break;
-		}
 
-		if (!origin) {
-			origin = randomInteger(
-				elevator.floors()[0], 
-				elevator.floors().slice(-1)
-			);
-		}
-
-		if (!destination) {
-			destination = randomInteger(
-				elevator.floors()[0], 
-				elevator.floors().slice(-1)
-			);
+			default:
+				origin = randomFloor();
+				destination = randomFloor();
+				break;
 		}
 
 		if (origin === destination) return;
