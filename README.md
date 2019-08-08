@@ -1,12 +1,12 @@
 ## Run locally
-To run locally navigate to the directory you want to save the project and copy the following into your terminal.
+To run locally, navigate to the directory you want to save the project and copy the following into your terminal.
 ```
 git clone https://github.com/cedw032/elevator_simulator.git
 cd elevator_simulator
-npm i
+yarn install
 yarn start
 ```
-If you don't have git and npm installed, you will have to install those first
+If you don't have git and yarn installed, you will have to install those first
 
 ## Test
 Once the project is installed, the tests can be run with the following
