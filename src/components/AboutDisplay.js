@@ -3,7 +3,7 @@ import React from 'react';
 const AboutDisplay = () => {
 	return (
 		<div className='panel'>
-			<h4>A brief exlanation of the UI</h4>
+			<h4>A brief explanation of the UI</h4>
 
 			<div className='panel'>
 				<h3>Top bar</h3>
