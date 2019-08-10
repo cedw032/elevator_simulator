@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b70c0e574b380f053bb66059fe92e2b7",
+    "revision": "1e83f3a88937206a3b983491d6af80fd",
     "url": "/elevator_simulator/build/index.html"
   },
   {
-    "revision": "a9fc2f4dd961e184f0dc",
+    "revision": "91f3e6265e6bfacaf379",
     "url": "/elevator_simulator/build/static/css/main.3863d914.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/elevator_simulator/build/static/js/2.e3f8e2a8.chunk.js"
   },
   {
-    "revision": "a9fc2f4dd961e184f0dc",
-    "url": "/elevator_simulator/build/static/js/main.3f2c60f7.chunk.js"
+    "revision": "91f3e6265e6bfacaf379",
+    "url": "/elevator_simulator/build/static/js/main.f3ed9246.chunk.js"
   },
   {
     "revision": "cd4380db904a2cb30673",
