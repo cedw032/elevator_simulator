@@ -42,9 +42,9 @@ body {
 		.floor-door-state {
 
 			transition: 
-				1.4s ease background-color,
-				1.4s ease border-color, 
-				1.4s ease color;
+				0.7s ease background-color,
+				0.7s ease border-color, 
+				0.7s ease color;
 
 			&.white {
 				background-color: $shade1;
@@ -73,7 +73,10 @@ body {
 				outline: none;
 			}
 
-			transition: 1.4s ease color, 1.4s ease border-color;
+			transition: 
+				1.4s ease color, 
+				1.4s ease background-color,
+				1.4s ease border-color;
 
 			&:disabled {
 				border-color: $shade3;

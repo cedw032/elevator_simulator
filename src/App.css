@@ -19,7 +19,7 @@ body {
       text-align: center;
       font-size: 11px; }
     body .app .floor-door-state {
-      transition: 1.4s ease background-color, 1.4s ease border-color,  1.4s ease color; }
+      transition: 0.7s ease background-color, 0.7s ease border-color,  0.7s ease color; }
       body .app .floor-door-state.white {
         background-color: #383536;
         color: #E8E9EB;
@@ -34,7 +34,7 @@ body {
         border-color: #636564;
         color: #636564; }
     body .app button {
-      transition: 1.4s ease color, 1.4s ease border-color; }
+      transition: 1.4s ease color,  1.4s ease background-color, 1.4s ease border-color; }
       body .app button:focus {
         outline: none; }
       body .app button:disabled {
