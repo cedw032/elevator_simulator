@@ -38,6 +38,11 @@ const provideElevator = (floorCount) => {
 		return !(requestFloorsAhead.length + destinationsAhead.length);
 	};
 
+	const cannotAcceptRequest = (floor, direction) => {
+		return isOpenAtFloor(floor) 
+			&& (canChangeDirection() || currentDirection === direction);
+	};
+
 	const shouldOpen = () => {
 		
 		if (destinationsAtCurrentFloor().length) return true;
@@ -100,9 +105,9 @@ const provideElevator = (floorCount) => {
 
 	const requestElevator = (floor, direction) => {
 		
-		if (isOpenAtFloor(floor)) {
+		if (cannotAcceptRequest(floor, direction)) {
 			openTime = 0;
-			return;
+			return;	
 		}
 
 		requests.push({floor, direction});
