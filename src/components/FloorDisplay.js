@@ -38,7 +38,7 @@ const FloorDisplay = ({floor, floors, isCurrentFloor, elevatorDoorsOpen, request
 						hereAndOpen && 'white',
 						!isCurrentFloor && 'hidden' 
 					)}
-					children={isCurrentFloor && elevatorDoorsOpen ? '|__|' : '_||_' }/>
+					children={hereAndOpen ? '|__|' : '_||_' }/>
 			</div>
 
 			{/*<div 
