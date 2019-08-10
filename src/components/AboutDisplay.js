@@ -9,15 +9,15 @@ const AboutDisplay = () => {
 				<h3>Top bar</h3>
 				<p>From left to right</p>
 				<p>
-					<b>Step by step mode: </b> Clicking this button will enter step by step mode.
-					This means the elevator will only run one cycle of its state machine with each 
-					click on this button.  This can be useful for watching what the elevator does 
-					under certain circumstances.
+					<b>Pause/Step: </b> Clicking this button will pause the simulation.
+					With each click after the first the simulation will execute one frame.  
+					This can be useful for watching what the elevator does under 
+					certain circumstances.
 				</p>
 
 				<p>
-					<b>Play/Fast Forward: </b> This button will exit step by step mode, and subsequent 
-					clicks will cycle between fast and regular play speeds.
+					<b>Play/Fast Forward: </b> This button will unpause the simulation, 
+					and subsequent clicks will cycle between fast and regular play speeds.
 				</p>
 
 				<p>

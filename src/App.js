@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import cx from 'classnames';
 import './App.css';
 
+import provideClock from './models/clock';
 import provideElevator from './models/elevator';
 import provideUsageSimulator from './models/usageSimulator';
 
@@ -13,14 +14,18 @@ import AboutDisplay from './components/AboutDisplay';
 
 const FLOOR_COUNT = 10;
 
+const clock = provideClock();
 const elevator = provideElevator(FLOOR_COUNT);
 
 const floors = [];
 for (let i = 1; i <= FLOOR_COUNT; ++i) floors.push(i);
 
-const usageSimulator = provideUsageSimulator(elevator, floors);
+const usageSimulator = provideUsageSimulator(elevator, floors);;
 
 function App() {
+
+	const [paused, setPaused] = useState(false);
+
 
 	const [currentFloor, setCurrentFloor] = useState(0);
 	const [destinations, setDestinations] = useState([]);
@@ -32,6 +37,10 @@ function App() {
 	useEffect(() => {
 
 		const cancellers = [];
+
+		cancellers.push(clock.on.timePasses(elevator.passTime));
+
+		cancellers.push(clock.on.pausedChanges(setPaused));
 
 		cancellers.push(elevator.on.floorChanges(setCurrentFloor));
 		cancellers.push(elevator.on.destinationsChange(setDestinations));
@@ -51,16 +60,23 @@ function App() {
 
 		elevator.reset();
 		usageSimulator.toggle();
+		clock.play();
 
 		return () => cancellers.forEach(canceller => canceller())
 
 	},[]);
 
 	const {
+		play,
+		pause,
+		passTime,
+		setPlayInterval,
+	} = clock;
+
+	const {
 		addDestination,
 		requestElevator,
 		reset,
-		passTime,
 		setOpenTimeout
 	} = elevator;
 
@@ -75,6 +91,10 @@ function App() {
 			<div className='panel row top-bar'>
 				<TimeController 
 					passTime={passTime}
+					paused={paused}
+					play={play}
+					pause={pause}
+					setPlayInterval={setPlayInterval}
 					setOpenTimeout={setOpenTimeout}
 					setQuickAnimations={setQuickAnimations}/>
 				<TestSettingsController 

@@ -1,68 +1,68 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import cx from 'classnames';
-import useAsyncState from '../hooks/useAsyncState';
 import Button from './Button';
 
-const AUTOPLAY_INTERVALS = [800, 140];
+const PLAY_INTERVALS = [800, 140];
 const AUTOPLAY_OPEN_TIMEOUT = 5;
 
-const TimeController = ({passTime, setOpenTimeout, setQuickAnimations}) => {
+const TimeController = (props) => {
 
-	const [asyncAutoplay, setAutoplay] = useAsyncState(true);
-	const [asyncAutoplaySpeed, setAutoplaySpeed] = useAsyncState(0);
+	const {
+		passTime, 
+		paused,
+		play, 
+		pause, 
+		setPlayInterval, 
+		setOpenTimeout, 
+		setQuickAnimations
+	} = props;
+
+	const [playIntervalIndex, setPlayIntervalIndex] = useState(0);
 
 	useEffect(() => {
-		if (asyncAutoplay.value) startAutoplay();
+		setPlayInterval(PLAY_INTERVALS[playIntervalIndex]);
 	}, []);
 
-	const applySingleTimestep = () => {
-		setAutoplay(false);
-		passTime();
-	}
-
-	const handleAutoplayButtonClick = () => {
-		if (asyncAutoplay.value) {
-			changePlaySpeed();
-			return;
-		}
-
-		startAutoplay();
-	}
-
 	const changePlaySpeed = () => {
-		setAutoplaySpeed((asyncAutoplaySpeed.value + 1) % AUTOPLAY_INTERVALS.length);
-		setQuickAnimations(asyncAutoplaySpeed.value);
+		const newIndex = (playIntervalIndex + 1) % PLAY_INTERVALS.length;
+		setPlayInterval(PLAY_INTERVALS[newIndex]);
+		setPlayIntervalIndex(newIndex);
 	};
 
-	const startAutoplay = () => {
-		setAutoplay(true);
+	const startPlaying = () => {
 		setOpenTimeout(AUTOPLAY_OPEN_TIMEOUT);
-		setTimeout(applyAutoplayTimestep);
+		play();
 	}
 
-	const applyAutoplayTimestep = () => {
-		if (asyncAutoplay.value) {
-			passTime();
-			setTimeout(
-				applyAutoplayTimestep, 
-				AUTOPLAY_INTERVALS[asyncAutoplaySpeed.value]
-			);
-			return;
-		}
-
+	const stopPlaying = () => {
 		setOpenTimeout(0);
+		pause();
 	}
 
 	return (
 		<div className='row'>
 			<Button 
-				children='|>'
-				onClick={applySingleTimestep}/>
+				children={paused ? '|>' : '||'}
+				onClick={() => {
+					if (paused) {
+						passTime();
+						return;
+					}
+
+					stopPlaying();
+				}}/>
 
 			<Button 
-				children={asyncAutoplaySpeed.value ? '>>' : '>'}
-				className={cx(asyncAutoplay.value && 'toggled')}
-				onClick={handleAutoplayButtonClick}/>
+				children={playIntervalIndex ? '>>' : '>'}
+				className={cx(!paused && 'toggled')}
+				onClick={() => {
+					if (!paused) {
+						changePlaySpeed();
+						return;
+					}
+
+					startPlaying();
+				}}/>
 		</div>
 	);
 };
