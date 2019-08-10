@@ -46,6 +46,29 @@ body {
 			font-size: 11px;
 		}
 
+		.floor-door-state {
+			&.white {
+				background-color: $shade1;
+				color: $shade2;
+				border-color: $shade2;
+			}
+
+			&.red {
+				color: $shade5;
+				border-color: $shade5;
+			}
+
+			&.yellow {
+				color: $shade7;
+				border-color: $shade7;
+			}
+
+			&.hidden {
+				border-color: $shade3;
+				color: $shade3;
+			}
+		}
+
 		div {
 
 			transition: 0.6s ease background-color, 0.6s ease color;

@@ -44,8 +44,7 @@ const AboutDisplay = () => {
 				<p>
 					This section is broken up into floors.
 					Pressing any up or down button will summon the elevator to that floor.
-					When a floor is highlighted it means the elevator is at the floor.
-					You will also see the word open when the elevator doors are open on that floor.
+					It also show the current floor of the elevator, and when the doors are open.
 				</p>
 			</div>
 

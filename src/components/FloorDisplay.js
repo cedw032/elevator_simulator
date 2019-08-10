@@ -7,6 +7,9 @@ const FloorDisplay = ({floor, floors, isCurrentFloor, elevatorDoorsOpen, request
 	const isUpRequested = !!requests.find(request => request.direction === UP);
 	const isDownRequested = !!requests.find(request => request.direction === DOWN);
 
+	const hereAndOpen = isCurrentFloor && elevatorDoorsOpen;
+	const hereAndNotOpen = isCurrentFloor && !elevatorDoorsOpen;
+
 	const isTopFloor = floor === +floors.slice(-1);
 	const isBottomFloor = floor === floors[0];
 
@@ -27,12 +30,23 @@ const FloorDisplay = ({floor, floors, isCurrentFloor, elevatorDoorsOpen, request
 				disabled={isTopFloor}
 				children='Up'/>
 
-			<div 
+			<div>
+				<button
+					className={cx(
+						'floor-door-state',
+						hereAndNotOpen && 'yellow',
+						hereAndOpen && 'white',
+						!isCurrentFloor && 'hidden' 
+					)}
+					children={isCurrentFloor && elevatorDoorsOpen ? '|__|' : '_||_' }/>
+			</div>
+
+			{/*<div 
 				className={cx(elevatorDoorsOpen && isCurrentFloor 
 					? 'highlight2' 
 					: 'hidden'
 				)}
-				children='Open'/>
+				children='Open'/>*/}
 
 		</div>
 	);
