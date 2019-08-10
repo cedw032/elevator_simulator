@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/elevator_simulator/build/static/css/main.d0702516.chunk.css",
-    "main.js": "/elevator_simulator/build/static/js/main.12a21479.chunk.js",
-    "main.js.map": "/elevator_simulator/build/static/js/main.12a21479.chunk.js.map",
+    "main.css": "/elevator_simulator/build/static/css/main.d02e5a30.chunk.css",
+    "main.js": "/elevator_simulator/build/static/js/main.1a158fcd.chunk.js",
+    "main.js.map": "/elevator_simulator/build/static/js/main.1a158fcd.chunk.js.map",
     "runtime~main.js": "/elevator_simulator/build/static/js/runtime~main.b58e3040.js",
     "runtime~main.js.map": "/elevator_simulator/build/static/js/runtime~main.b58e3040.js.map",
     "static/js/2.d25b1cc4.chunk.js": "/elevator_simulator/build/static/js/2.d25b1cc4.chunk.js",
     "static/js/2.d25b1cc4.chunk.js.map": "/elevator_simulator/build/static/js/2.d25b1cc4.chunk.js.map",
     "index.html": "/elevator_simulator/build/index.html",
-    "precache-manifest.2a1e5a04f1356f6d06727a4d851f5e90.js": "/elevator_simulator/build/precache-manifest.2a1e5a04f1356f6d06727a4d851f5e90.js",
+    "precache-manifest.1adcb9bfff9425145f6f1a99bdaf8dea.js": "/elevator_simulator/build/precache-manifest.1adcb9bfff9425145f6f1a99bdaf8dea.js",
     "service-worker.js": "/elevator_simulator/build/service-worker.js",
-    "static/css/main.d0702516.chunk.css.map": "/elevator_simulator/build/static/css/main.d0702516.chunk.css.map"
+    "static/css/main.d02e5a30.chunk.css.map": "/elevator_simulator/build/static/css/main.d02e5a30.chunk.css.map"
   }
 }
