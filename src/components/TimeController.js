@@ -3,7 +3,7 @@ import cx from 'classnames';
 import Button from './Button';
 
 const PLAY_INTERVALS = [800, 140];
-const AUTOPLAY_OPEN_TIMEOUT = 5;
+const OPEN_TIMEOUT_WHEN_PLAYING = 5;
 
 const TimeController = (props) => {
 
@@ -21,6 +21,7 @@ const TimeController = (props) => {
 
 	useEffect(() => {
 		setPlayInterval(PLAY_INTERVALS[playIntervalIndex]);
+		startPlaying();
 	}, []);
 
 	const changePlaySpeed = () => {
@@ -30,7 +31,7 @@ const TimeController = (props) => {
 	};
 
 	const startPlaying = () => {
-		setOpenTimeout(AUTOPLAY_OPEN_TIMEOUT);
+		setOpenTimeout(OPEN_TIMEOUT_WHEN_PLAYING);
 		play();
 	}
 

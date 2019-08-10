@@ -60,7 +60,6 @@ function App() {
 
 		elevator.reset();
 		usageSimulator.toggle();
-		clock.play();
 
 		return () => cancellers.forEach(canceller => canceller())
 
