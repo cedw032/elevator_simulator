@@ -37,7 +37,7 @@ body {
       body .app button:disabled {
         border-color: #636564;
         color: #636564; }
-      body .app button.toggled {
+      body .app button.clicked, body .app button.toggled {
         transition: none;
         background-color: #383536;
         color: #E8E9EB;

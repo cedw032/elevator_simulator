@@ -1,5 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
+import Button from './Button'
 
 const ElevatorDisplay = ({floors, destinations, addDestination}) => {
 
@@ -9,7 +10,7 @@ const ElevatorDisplay = ({floors, destinations, addDestination}) => {
 	return (
 		<div className='elevator-display'>
 			{floors.map((floor) =>
-				<button
+				<Button
 					children={floor}
 					key={floor}
 					className={

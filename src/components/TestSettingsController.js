@@ -1,19 +1,20 @@
 import React from 'react';
 import cx from 'classnames';
+import Button from './Button';
 
 const TestSettingsController = ({spawnPassenger, toggleUsageSimulator, reset, usageSimulatorIsEnabled}) => {
 
 	return (
 		<div className='row'>
-			<button 
+			<Button 
 				onClick={spawnPassenger}
 				children='Random passenger'/>
-			<button 
+			<Button 
 				className={cx(usageSimulatorIsEnabled && 'toggled')}
 				onClick={toggleUsageSimulator}
 				children='Simulate usage'/>
 
-			<button 
+			<Button 
 				onClick={reset}
 				children='x'/>
 		</div>

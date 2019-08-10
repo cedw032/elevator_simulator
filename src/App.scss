@@ -76,6 +76,7 @@ body {
 				color: $shade3;
 			}
 
+			&.clicked,
 			&.toggled {
 				transition: none;
 				background-color: $shade1;

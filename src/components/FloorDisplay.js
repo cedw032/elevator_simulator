@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import {DOWN, UP} from '../constants/direction';
+import Button from './Button';
 
 const FloorDisplay = ({floor, floors, isCurrentFloor, elevatorDoorsOpen, requests, requestElevator}) => {
 
@@ -18,13 +19,13 @@ const FloorDisplay = ({floor, floors, isCurrentFloor, elevatorDoorsOpen, request
 			
 			<div>Floor {floor}</div>
 			
-			<button 
+			<Button 
 				className={cx(isDownRequested && 'toggled')}
 				onClick={() => requestElevator(floor, DOWN)}
 				disabled={isBottomFloor}
 				children='Down'/>
 			
-			<button 
+			<Button 
 				className={cx(isUpRequested && 'toggled')}
 				onClick={() => requestElevator(floor, UP)}
 				disabled={isTopFloor}
@@ -38,13 +39,6 @@ const FloorDisplay = ({floor, floors, isCurrentFloor, elevatorDoorsOpen, request
 					!isCurrentFloor && 'hidden' 
 				)}
 				children={hereAndOpen ? '|__|' : '_||_' }/>
-
-			{/*<div 
-				className={cx(elevatorDoorsOpen && isCurrentFloor 
-					? 'highlight2' 
-					: 'hidden'
-				)}
-				children='Open'/>*/}
 
 		</div>
 	);

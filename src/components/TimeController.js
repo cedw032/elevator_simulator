@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import cx from 'classnames';
 import useAsyncState from '../hooks/useAsyncState';
+import Button from './Button';
 
 const AUTOPLAY_INTERVALS = [800, 140];
 const AUTOPLAY_OPEN_TIMEOUT = 5;
@@ -54,11 +55,11 @@ const TimeController = ({passTime, setOpenTimeout, setQuickAnimations}) => {
 
 	return (
 		<div className='row'>
-			<button 
+			<Button 
 				children='|>'
 				onClick={applySingleTimestep}/>
 
-			<button 
+			<Button 
 				children={asyncAutoplaySpeed.value ? '>>' : '>'}
 				className={cx(asyncAutoplay.value && 'toggled')}
 				onClick={handleAutoplayButtonClick}/>
