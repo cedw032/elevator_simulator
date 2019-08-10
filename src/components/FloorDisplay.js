@@ -30,16 +30,14 @@ const FloorDisplay = ({floor, floors, isCurrentFloor, elevatorDoorsOpen, request
 				disabled={isTopFloor}
 				children='Up'/>
 
-			<div>
-				<button
-					className={cx(
-						'floor-door-state',
-						hereAndNotOpen && 'yellow',
-						hereAndOpen && 'white',
-						!isCurrentFloor && 'hidden' 
-					)}
-					children={hereAndOpen ? '|__|' : '_||_' }/>
-			</div>
+			<div
+				className={cx(
+					'floor-door-state',
+					hereAndNotOpen && 'yellow',
+					hereAndOpen && 'white',
+					!isCurrentFloor && 'hidden' 
+				)}
+				children={hereAndOpen ? '|__|' : '_||_' }/>
 
 			{/*<div 
 				className={cx(elevatorDoorsOpen && isCurrentFloor 
