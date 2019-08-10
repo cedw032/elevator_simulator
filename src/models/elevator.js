@@ -64,6 +64,7 @@ const provideElevator = (floorCount) => {
 	);
 
 	const isOpen = () => elevatorState === OPEN;
+	const isOpenAtFloor = floor => floor == currentFloor && isOpen();
 
 	///////////////// INTERNAL DERIVED STATE // END
 
@@ -87,11 +88,23 @@ const provideElevator = (floorCount) => {
 
 	const addDestination = floor => {
 		destinations.push(floor);
+
+		if (isOpenAtFloor(floor)) {
+			openTime = 0;
+			return;
+		}
+
 		if (elevatorState === OPEN) allowDoorsToClose();
 		dispatch.destinationsChange([...destinations]);
 	};
 
 	const requestElevator = (floor, direction) => {
+		
+		if (isOpenAtFloor()) {
+			openTime = 0;
+			return;
+		}
+
 		requests.push({floor, direction});
 		dispatch.requestsChange([...requests]);
 	}
@@ -192,6 +205,8 @@ const provideElevator = (floorCount) => {
 
 				++moveTime;
 				break;
+
+			default: throw `unhandled elevator state ${elevatorState}`;
 		}
 
 		dispatch.timePasses();
