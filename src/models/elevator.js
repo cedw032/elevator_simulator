@@ -84,23 +84,23 @@ const provideElevator = (floorCount) => {
 			[...requests], 
 			isOpen(),
 		);
-	}
+	};
 
 	const addDestination = floor => {
-		destinations.push(floor);
 
 		if (isOpenAtFloor(floor)) {
 			openTime = 0;
 			return;
 		}
 
+		destinations.push(floor);
 		if (elevatorState === OPEN) allowDoorsToClose();
 		dispatch.destinationsChange([...destinations]);
 	};
 
 	const requestElevator = (floor, direction) => {
 		
-		if (isOpenAtFloor()) {
+		if (isOpenAtFloor(floor)) {
 			openTime = 0;
 			return;
 		}
