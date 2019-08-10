@@ -15,15 +15,7 @@ body {
 		max-width: 350px;
 
 		&.quick-animations {
-
-			.floor-display {
-				transition: none;
-			}
-
-			.floor-door-state {
-				transition: none;
-			}
-
+			// Wired up with the time controller.
 		}
 
 		.panel,
@@ -47,6 +39,7 @@ body {
 				0.7s ease color;
 
 			&.white {
+				transition: none;
 				background-color: $shade1;
 				color: $shade2;
 				border-color: $shade2;
@@ -91,6 +84,12 @@ body {
 			}
 		}
 
+		b,
+		h4,
+		h3 {
+			color: $shade2; 
+		}
+
 		.floor-bank {
 			display: flex;
 			flex-direction: column-reverse;
@@ -106,6 +105,7 @@ body {
 				1.4s ease color;
 
 			&.highlight {
+				transition: none;
 				background-color: $shade1;
 				color: $shade2;
 			}

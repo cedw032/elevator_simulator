@@ -3,10 +3,6 @@ body {
   color: #DDB967; }
   body .app {
     max-width: 350px; }
-    body .app.quick-animations .floor-display {
-      transition: none; }
-    body .app.quick-animations .floor-door-state {
-      transition: none; }
     body .app .panel,
     body .app button {
       background-color: #2A2B2A;
@@ -21,6 +17,7 @@ body {
     body .app .floor-door-state {
       transition: 0.7s ease background-color, 0.7s ease border-color,  0.7s ease color; }
       body .app .floor-door-state.white {
+        transition: none;
         background-color: #383536;
         color: #E8E9EB;
         border-color: #E8E9EB; }
@@ -45,6 +42,10 @@ body {
         background-color: #383536;
         color: #E8E9EB;
         border-color: #E8E9EB; }
+    body .app b,
+    body .app h4,
+    body .app h3 {
+      color: #E8E9EB; }
     body .app .floor-bank {
       display: flex;
       flex-direction: column-reverse; }
@@ -53,6 +54,7 @@ body {
       justify-content: flex-end;
       transition: 1.4s ease background-color, 1.4s ease border-color,  1.4s ease color; }
       body .app .floor-display.highlight {
+        transition: none;
         background-color: #383536;
         color: #E8E9EB; }
       body .app .floor-display > div {
