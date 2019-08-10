@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/elevator_simulator/build/precache-manifest.73dd0e0db62149337c63c381b3c807f8.js"
+  "/elevator_simulator/build/precache-manifest.4b86e7a75eb8a05736d1f98c945da19d.js"
 );
 
 self.addEventListener('message', (event) => {
