@@ -15,7 +15,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "watch-css": "node-sass-chokidar ./src/App.scss ./src/App.css --watch"
+    "watch-css": "node-sass-chokidar ./src/App.scss ./src/App.css --watch",
+    "deploy": "yarn build; git add -f 'build'; git commit -m 'Rebuild and deploy'; git push;"
   },
   "eslintConfig": {
     "extends": "react-app"
