@@ -3,7 +3,7 @@ import cx from 'classnames';
 import {DOWN, UP} from '../constants/direction';
 import Button from './Button';
 
-const FloorDisplay = ({floor, floors, isCurrentFloor, elevatorDoorsOpen, requests, requestElevator}) => {
+const FloorDisplay = ({floor, floors, isCurrentFloor, elevatorDoorsOpen, requests, isDestination, requestElevator}) => {
 
 	const isUpRequested = !!requests.find(request => request.direction === UP);
 	const isDownRequested = !!requests.find(request => request.direction === DOWN);
@@ -14,31 +14,45 @@ const FloorDisplay = ({floor, floors, isCurrentFloor, elevatorDoorsOpen, request
 	const isTopFloor = floor === +floors.slice(-1);
 	const isBottomFloor = floor === floors[0];
 
+	const isWaitingForElevator = 
+		!hereAndOpen 
+		&& (isDestination || isUpRequested || isDownRequested);
+
 	return (
 		<div className={cx('row', 'floor-display', isCurrentFloor && 'highlight')}>
 			
-			<div>Floor {floor}</div>
+			<div
+				children={`Floor ${floor}`} 
+				className={cx(
+					'floor-state', 
+					/*hereAndOpen && 'white',
+					!hereAndOpen && 'yellow',*/
+
+					(isWaitingForElevator) && 'yellow',
+					hereAndOpen && 'white',
+					!isWaitingForElevator && !hereAndOpen && 'hidden',
+				)}/>
 			
 			<Button 
+				children='Down'
 				className={cx(isDownRequested && 'toggled')}
 				onClick={() => requestElevator(floor, DOWN)}
-				disabled={isBottomFloor}
-				children='Down'/>
+				disabled={isBottomFloor}/>
 			
 			<Button 
+				children='Up'
 				className={cx(isUpRequested && 'toggled')}
 				onClick={() => requestElevator(floor, UP)}
-				disabled={isTopFloor}
-				children='Up'/>
+				disabled={isTopFloor}/>
 
 			<div
+				children={hereAndOpen ? '|__|' : '_||_' }
 				className={cx(
 					'floor-door-state',
 					hereAndNotOpen && 'yellow',
 					hereAndOpen && 'white',
 					!isCurrentFloor && 'hidden' 
-				)}
-				children={hereAndOpen ? '|__|' : '_||_' }/>
+				)}/>
 
 		</div>
 	);

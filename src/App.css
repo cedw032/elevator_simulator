@@ -14,19 +14,24 @@ body {
       margin-right: 4px;
       text-align: center;
       font-size: 11px; }
+    body .app .floor-state,
     body .app .floor-door-state {
       transition: 0.7s ease background-color, 0.7s ease border-color,  0.7s ease color; }
+      body .app .floor-state.white,
       body .app .floor-door-state.white {
         transition: none;
         background-color: #383536;
         color: #E8E9EB;
         border-color: #E8E9EB; }
+      body .app .floor-state.red,
       body .app .floor-door-state.red {
         color: #ED474A;
         border-color: #ED474A; }
+      body .app .floor-state.yellow,
       body .app .floor-door-state.yellow {
         color: #DDB967;
         border-color: #DDB967; }
+      body .app .floor-state.hidden,
       body .app .floor-door-state.hidden {
         border-color: #636564;
         color: #636564; }

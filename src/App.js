@@ -109,6 +109,7 @@ function App() {
 					floors={floors}
 					currentFloor={currentFloor}
 					requests={requests}
+					destinations={destinations}
 					doorsOpen={doorsOpen}
 					requestElevator={requestElevator}/>
 				<ElevatorDisplay 
