@@ -14,7 +14,7 @@ const FloorDisplay = ({floor, floors, isCurrentFloor, elevatorDoorsOpen, request
 	const isTopFloor = floor === +floors.slice(-1);
 	const isBottomFloor = floor === floors[0];
 
-	const isWaitingForElevator = 
+	const elevatorExpected = 
 		!hereAndOpen 
 		&& (isDestination || isUpRequested || isDownRequested);
 
@@ -25,12 +25,9 @@ const FloorDisplay = ({floor, floors, isCurrentFloor, elevatorDoorsOpen, request
 				children={`Floor ${floor}`} 
 				className={cx(
 					'floor-state', 
-					/*hereAndOpen && 'white',
-					!hereAndOpen && 'yellow',*/
-
-					(isWaitingForElevator) && 'yellow',
+					elevatorExpected && 'yellow',
 					hereAndOpen && 'white',
-					!isWaitingForElevator && !hereAndOpen && 'hidden',
+					!elevatorExpected && !hereAndOpen && 'hidden',
 				)}/>
 			
 			<Button 
