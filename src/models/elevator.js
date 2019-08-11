@@ -94,7 +94,7 @@ const provideElevator = (floorCount) => {
 	const addDestination = floor => {
 
 		if (isOpenAtFloor(floor)) {
-			openTime = 0;
+			keepDoorsOpen();
 			return;
 		}
 
@@ -106,7 +106,7 @@ const provideElevator = (floorCount) => {
 	const requestElevator = (floor, direction) => {
 		
 		if (cannotAcceptRequest(floor, direction)) {
-			openTime = 0;
+			keepDoorsOpen();
 			return;	
 		}
 
@@ -146,6 +146,11 @@ const provideElevator = (floorCount) => {
 		dispatch.destinationsChange([...destinations]);
 		dispatch.requestsChange([...requests]);
 	};
+
+	const keepDoorsOpen = () => {
+		openTime = 0;
+		dispatch.doorsOpen(currentFloor, currentDirection, canChangeDirection());
+	}
 
 	const updateCurrentFloor = () => {
 		currentFloor += currentDirection;
